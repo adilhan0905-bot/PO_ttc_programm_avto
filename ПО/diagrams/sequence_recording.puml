@@ -1,0 +1,16 @@
+@startuml
+actor "Разработчик" as Dev
+participant "Tkinter UI" as UI
+participant "OpenCV" as CV
+participant "Recorder" as REC
+
+Dev -> UI: Включить запись
+UI -> REC: Создать VideoWriter
+loop Каждый кадр
+  CV -> UI: Аннотированный кадр
+  UI -> REC: Записать кадр
+end
+Dev -> UI: Остановить запись
+UI -> REC: Release()
+REC --> UI: MP4-файл сохранён
+@enduml

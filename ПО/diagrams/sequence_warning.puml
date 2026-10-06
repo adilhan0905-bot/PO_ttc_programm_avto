@@ -1,0 +1,28 @@
+@startuml
+actor "Водитель" as Driver
+participant "Tkinter UI" as UI
+participant "OpenCV" as CV
+participant "YOLO/PyTorch" as AI
+participant "TTC Calculator" as TTC
+participant "Warning Manager" as WM
+participant "Logger" as Log
+participant "CAN Adapter" as CAN
+
+Driver -> UI: Запустить обработку
+UI -> CV: Получить кадр
+CV -> AI: Передать кадр
+AI --> CV: Объекты + bbox
+CV -> TTC: Передать bbox + скорость
+TTC --> WM: TTC + уровень опасности
+alt TTC <= порога
+  WM -> UI: Визуальное предупреждение
+  WM -> Log: Записать событие
+  alt TTC < 1 c
+    WM -> CAN: Передать критическое предупреждение
+    CAN --> WM: ACK / simulation
+  end
+  WM -> Driver: Звуковой сигнал
+else TTC > порога
+  WM -> UI: Состояние SAFE
+end
+@enduml

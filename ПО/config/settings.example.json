@@ -1,0 +1,12 @@
+{
+  "sensitivity_seconds": 2.0,
+  "vehicle_speed_kmh": 30.0,
+  "confidence": 0.35,
+  "camera_index": 0,
+  "hfov_deg": 90.0,
+  "show_fps": true,
+  "show_distance": true,
+  "sound_enabled": true,
+  "can_enabled": true,
+  "model_path": "yolov8n.pt"
+}
